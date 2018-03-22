@@ -1,24 +1,18 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [packages]
-
 jupyter = "*"
 numpy = "*"
 scipy = "*"
 pillow = "*"
 matplotlib = "*"
 opencv-python = "*"
-
+imageio = "*"
 
 [dev-packages]
 
-
-
 [requires]
-
 python_version = "3.5"
