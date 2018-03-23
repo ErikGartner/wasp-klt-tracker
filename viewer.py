@@ -76,6 +76,25 @@ class Viewer:
         self.bounding_box = []
         return box
 
+    def _start_tracker(self, box):
+        """
+        Starts the tracker for the given ROI.
+        """
+        self.tracker.new_roi(self.current_image, box)
+
+    def _next_frame(self):
+        """
+        Tracks the roi to the next frame.
+        """
+        # Get next frame
+        self.current_image = next(self.image_stream)
+        # Show next frame
+        self.update_view()
+        roi = self.tracker.next_image(self.current_image)
+
+        # Show the new box we're tracking
+        self._show_bounding_box(roi)
+
     def _on_click(self, event):
         """
         Handles the on click event.
@@ -99,5 +118,5 @@ class Viewer:
 
             self._start_tracker(box)
 
-    def _on_key(self):
-        pass
+    def _on_key(self, event):
+        self._next_frame()
