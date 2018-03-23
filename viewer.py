@@ -58,6 +58,14 @@ class Viewer:
             ))
         self.fig.canvas.draw()
 
+    def _show_features(self, features):
+        for f in features:
+            pos = (int(f[0, 0]), int(f[0, 1]))
+            p = patches.Circle(pos,
+                               radius=3, color='red')
+            self.ax.add_patch(p)
+        self.fig.canvas.draw()
+
     def _get_bbox(self):
         """
         Adds a bounding box from the points in bounding_box.
@@ -81,6 +89,8 @@ class Viewer:
         Starts the tracker for the given ROI.
         """
         self.tracker.new_roi(self.current_image, box)
+        features = self.tracker.get_features()
+        self._show_features(features)
 
     def _next_frame(self):
         """
