@@ -6,7 +6,7 @@ from matplotlib.pyplot import imshow, imread
 import matplotlib.pyplot as plt
 from PIL import Image
 
-from ktl_tracker import calc_klt
+from klt_tracker import calc_klt
 
 
 class Tracker(object):
@@ -113,4 +113,4 @@ class KLTTracker(Tracker):
         return res
 
     def _normalize(self, img):
-        return img / 255.0
+        return img / img.max()

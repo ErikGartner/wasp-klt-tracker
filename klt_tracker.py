@@ -13,7 +13,7 @@ def differentiate(img_arr):
     x_diff = ndimage.convolve(img_arr, X_FILTER)
     y_diff = ndimage.convolve(img_arr, Y_FILTER)
 
-    x_diff, y_diff = np.gradient(img_arr)
+    #x_diff, y_diff = np.gradient(img_arr)
 
     return (x_diff, y_diff)
 
