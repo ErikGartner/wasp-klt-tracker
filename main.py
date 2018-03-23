@@ -10,6 +10,7 @@ if __name__ == '__main__':
     reader = imageio.get_reader('/Users/erik/Desktop/coke_zero.mp4')
     reader = iter(reader)
 
+    tracker = Tracker()
 
-    viewer = Viewer(reader, None)
+    viewer = Viewer(reader, tracker)
     viewer.launch_viewer()

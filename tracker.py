@@ -21,9 +21,9 @@ class Tracker(object):
         """
         pass
 
-    def next_image(img_arr):
+    def next_image(self, img_arr):
         """
         Takes the next frame and tracks the ROI using the selected
         features. Returns a new ROI.
         """
-        pass
+        return self.current_roi
