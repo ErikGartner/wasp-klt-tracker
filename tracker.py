@@ -1,5 +1,12 @@
 import cv2
 import numpy as np
+from scipy import ndimage, interpolate
+
+from matplotlib.pyplot import imshow, imread
+import matplotlib.pyplot as plt
+from PIL import Image
+
+from ktl_tracker import calc_klt
 
 
 class Tracker(object):
@@ -69,7 +76,7 @@ class Tracker(object):
         pts = self.features.astype(np.float32)
         I2 = self.current_image
         J2 = new_img
-        res = cv2.calcOpticalFlowPyrLK(I2, J2, pts, None, winSize=(21, 21), maxLevel=0)
+        res = cv2.calcOpticalFlowPyrLK(I2, J2, pts, None, winSize=(21, 21), maxLevel=3)
         return res[0]
 
     def _update_roi(self, old_features, new_features):
@@ -86,3 +93,24 @@ class Tracker(object):
         roi = [(x_start, y_start),
                (x_end, y_end)]
         return roi
+
+
+class KLTTracker(Tracker):
+
+    def __init__(self):
+        super().__init__()
+
+    def _track_features(self, new_img):
+        """
+        Tracks the feature points.
+        """
+        pts = self.features.astype(np.uint8)
+        pts = [(int(p[0][0]), int(p[0][1])) for p in self.features]
+        I2 = self._normalize(self.current_image)
+        J2 = self._normalize(new_img)
+
+        res = calc_klt(I2, J2, pts, (21, 21), max_iter=30)
+        return res
+
+    def _normalize(self, img):
+        return img / 255.0

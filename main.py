@@ -1,7 +1,8 @@
 import imageio
+import cv2
 
 from viewer import Viewer
-from tracker import Tracker
+from tracker import Tracker, KLTTracker
 
 
 if __name__ == '__main__':
@@ -10,7 +11,7 @@ if __name__ == '__main__':
     reader = imageio.get_reader('/Users/erik/Desktop/coke_zero.mp4')
     reader = iter(reader)
 
-    tracker = Tracker()
+    tracker = KLTTracker()
 
     viewer = Viewer(reader, tracker)
     viewer.launch_viewer()
