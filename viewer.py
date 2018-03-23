@@ -98,12 +98,18 @@ class Viewer:
         """
         # Get next frame
         self.current_image = next(self.image_stream)
+
         # Show next frame
         self.update_view()
+
         roi = self.tracker.next_image(self.current_image)
 
         # Show the new box we're tracking
         self._show_bounding_box(roi)
+
+        # Show the features
+        features = self.tracker.get_features()
+        self._show_features(features)
 
     def _on_click(self, event):
         """
