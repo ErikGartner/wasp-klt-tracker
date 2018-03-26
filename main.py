@@ -1,3 +1,5 @@
+import argparse
+
 import imageio
 import cv2
 import numpy as np
@@ -25,18 +27,28 @@ class StreamIterator():
         return self.next()
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description='KTL Tracker')
+    parser.add_argument('source', nargs='?', help='The source, defaults to webcame, else filepath to a video.', default=0)
+    parser.add_argument('--custom', action='store_true', help='use my custom KTL implementation.')
+    args = parser.parse_args()
+    return args
+
+
 if __name__ == '__main__':
 
-    source = 0 # For webcam
-    source = 'data/coke_zero.mp4'
+    args = parse_args()
 
     # Get test video
-    stream = StreamIterator(source)
+    stream = StreamIterator(args.source)
     for i in range(2):
         # Skip first 2 frames to "warm up" the webcam
         next(stream)
 
-    tracker = Tracker()
+    if args.custom:
+        tracker = KLTTracker()
+    else:
+        tracker = Tracker()
 
     viewer = Viewer(stream, tracker)
     viewer.launch_viewer()
