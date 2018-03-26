@@ -8,14 +8,12 @@ import cv2
 
 class Viewer:
 
-    def __init__(self, image_stream, tracker, image_space_transform):
+    def __init__(self, image_stream, tracker):
 
         self.tracker = tracker
         self.image_stream = image_stream
-        self.image_space_transform = image_space_transform
 
-        self.current_image = cv2.cvtColor(next(self.image_stream),
-                                          image_space_transform)
+        self.current_image = next(self.image_stream)
 
         # collects unfinished bounding box
         self.bounding_box = []
@@ -83,8 +81,7 @@ class Viewer:
         Tracks the roi to the next frame.
         """
         # Get next frame
-        self.current_image = cv2.cvtColor(next(self.image_stream),
-                                          self.image_space_transform)
+        self.current_image = next(self.image_stream)
 
         roi = self.tracker.next_image(self.current_image)
 
