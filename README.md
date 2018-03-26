@@ -1,6 +1,8 @@
 # Kanade-Lucas-Tomasi Tracker
 *An implementation of the KTL tracker for the WASP course.*
 
+The details of algorithm is describe in the [notebook](Solution.ipynb)
+
 ## How to run
 
 Install requirements (optionally into a virtual env):
